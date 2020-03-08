@@ -71,26 +71,6 @@ vector<int> LinuxParser::Pids() {
 // TODO: Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() { return 0.0; }
 
-long Uptime2() {
-    FILE *fp;
-    time_t uptime = 0;
-    fp = fopen("/proc/uptime", "r");
-    if (fp != NULL) {
-        char buf[BUFSIZ];
-        char *b = fgets(buf, BUFSIZ, fp);
-        if (b == buf) {
-            char *end_ptr;
-            double upsecs = strtod(buf, &end_ptr);
-            if (buf != end_ptr)
-                uptime = (0 <= upsecs && upsecs < std::numeric_limits<double>::max()
-                          ? upsecs : -1);
-        }
-
-        fclose(fp);
-    }
-    return uptime;
-}
-
 // TODO: Read and return the system uptime
 long LinuxParser::UpTime() {
     std::string line;
@@ -101,7 +81,7 @@ long LinuxParser::UpTime() {
         if (getline(stream, line)) {
             std::istringstream linestream(line);
             linestream >> value1;
-            uptime = atol(value1.c_str());
+            uptime = strtol(value1.c_str(), nullptr, 10);
         }
     }
     return uptime;
