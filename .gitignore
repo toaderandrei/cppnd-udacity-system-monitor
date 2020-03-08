@@ -4,3 +4,7 @@ settings.json
 *.o
 build/*
 *.json
+
+.idea
+cmake-build-debug/
+

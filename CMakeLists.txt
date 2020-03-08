@@ -7,7 +7,7 @@ include_directories(${CURSES_INCLUDE_DIRS})
 include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
 
-add_executable(monitor ${SOURCES})
+add_executable(monitor ${SOURCES} include/parser_utils.h)
 
 set_property(TARGET monitor PROPERTY CXX_STANDARD 17)
 target_link_libraries(monitor ${CURSES_LIBRARIES})
