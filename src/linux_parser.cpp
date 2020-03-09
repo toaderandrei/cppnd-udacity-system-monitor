@@ -6,6 +6,7 @@
 #include "cstdint"
 #include "parser_utils.h"
 #include "linux_parser.h"
+#include "constants.h"
 
 using std::stof;
 using std::string;
@@ -68,10 +69,20 @@ vector<int> LinuxParser::Pids() {
     return pids;
 }
 
-// TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() { return 0.0; }
+float LinuxParser::MemoryUtilization() {
+    std::string key, line;
+    float total_memory = 0.0, memory_free = 0.0;
+    float memory_used = 0.0;
+    std::ifstream stream(LinuxParser::kProcDirectory + kMeminfoFilename);
+    total_memory = Utils::GetValueByKey<float>(Constants::filterMemTotal, kMeminfoFilename);
+    memory_free = Utils::GetValueByKey<float>(Constants::filterMemoryFree, kMeminfoFilename);
 
-// TODO: Read and return the system uptime
+    if (total_memory != 0.0) {
+        memory_used = (total_memory - memory_free) / total_memory;
+    }
+    return memory_used;
+}
+
 long LinuxParser::UpTime() {
     std::string line;
     std::string value1;
@@ -103,14 +114,12 @@ long LinuxParser::IdleJiffies() { return 0; }
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { return {}; }
 
-// TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() {
-    return Utils::GetValueByKey<int>("processes", kStatFilename);
+    return Utils::GetValueByKey<int>(Constants::filterProcesses, kStatFilename);
 }
 
-// TODO: Read and return the number of running processes
 int LinuxParser::RunningProcesses() {
-    return Utils::GetValueByKey<int>("procs_running", kStatFilename);
+    return Utils::GetValueByKey<int>(Constants::filterRunningProcesses, kStatFilename);
 }
 
 // TODO: Read and return the command associated with a process

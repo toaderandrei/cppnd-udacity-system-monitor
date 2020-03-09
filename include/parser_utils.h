@@ -22,6 +22,7 @@ namespace Utils {
                 while (linestream >> key) {
                     if (key == filter) {
                         linestream >> value;
+                        break;
                     }
                 }
             }
