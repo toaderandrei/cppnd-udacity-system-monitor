@@ -34,14 +34,14 @@ namespace Utils {
         return value;
     }
 
-    std::vector<double> GetCpuData(const std::string &directory,
+    std::vector<float> GetCpuData(const std::string &directory,
                                    const std::string &filename) {
 
         const std::string &filter = "cpu";
 
-        std::vector<double> cpuData;
+        std::vector<float> cpuData;
         std::string key, line;
-        double idle, user, nice, iowait, system, irq, softirq, steal, guest;
+        float idle, user, nice, iowait, system, irq, softirq, steal, guest;
         std::ifstream stream(directory + filename);
 
         if (stream.is_open()) {

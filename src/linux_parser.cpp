@@ -99,7 +99,7 @@ long LinuxParser::UpTime() {
 
 
 // TODO: Read and return CPU utilization
-vector<double> LinuxParser::CpuUtilization() {
+vector<float> LinuxParser::CpuUtilization() {
     return Utils::GetCpuData(kProcDirectory, kStatFilename);
 }
 

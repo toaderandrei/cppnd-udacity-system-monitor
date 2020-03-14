@@ -5,48 +5,47 @@
 //todo for an advanced - check recent stats in the last weeks/days and not
 // from the beginning of time.
 
-// TODO: Return the aggregate CPU utilization
-double Processor::Utilization() {
-    std::vector<double> processor_data = LinuxParser::CpuUtilization();
-    double user = processor_data[0];
-    double nice = processor_data[1];
-    double system = processor_data[2];
-    double idle = processor_data[3];
-    double iowait = processor_data[4];
-    double irq = processor_data[5];
-    double softirq = processor_data[6];
-    double steal = processor_data[7];
+float Processor::Utilization() {
+    std::vector<float> processor_data = LinuxParser::CpuUtilization();
+    float user = processor_data[0];
+    float nice = processor_data[1];
+    float system = processor_data[2];
+    float idle = processor_data[3];
+    float iowait = processor_data[4];
+    float irq = processor_data[5];
+    float softirq = processor_data[6];
+    float steal = processor_data[7];
 
-    double _prevIdle = this->prevIdleTime + this->prevIowaitTime;
-    double _idle = idle + iowait;
+    float _prevIdle = this->prevIdleTime + this->prevIowaitTime;
+    float _idle = idle + iowait;
 
-    double _prevNonIdleTime = this->prevUserTime + this->prevSystemTime +
+    float _prevNonIdleTime = this->prevUserTime + this->prevSystemTime +
                               this->prevNiceTime +
                               this->prevIrqTime + this->prevSoftIrqTime +
                               this->prevStealTime;
 
-    double _nonIdle = user + nice + system + irq + softirq + steal;
+    float _nonIdle = user + nice + system + irq + softirq + steal;
 
-    double _prevTotal = _prevIdle + _prevNonIdleTime;
-    double _total = _idle + _nonIdle;
+    float _prevTotal = _prevIdle + _prevNonIdleTime;
+    float _total = _idle + _nonIdle;
 
     //calculated totalid and idlded time.
-    double totald = _total - _prevTotal;
-    double idled = _idle - _prevIdle;
+    float totald = _total - _prevTotal;
+    float idled = _idle - _prevIdle;
 
-    double cpu_percentage = (totald - idled) / totald;
+    float cpu_percentage = (totald - idled) / totald;
     UpdateValues(user, nice, system, idle, iowait, irq, softirq, steal);
     return cpu_percentage;
 }
 
-void Processor::UpdateValues(double user,
-                             double nice,
-                             double system,
-                             double idle,
-                             double iowait,
-                             double irq,
-                             double softirq,
-                             double steal) {
+void Processor::UpdateValues(float user,
+                             float nice,
+                             float system,
+                             float idle,
+                             float iowait,
+                             float irq,
+                             float softirq,
+                             float steal) {
     prevUserTime = user;
     prevIdleTime = idle;
     prevSystemTime = system;

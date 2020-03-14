@@ -6,7 +6,7 @@
 class Processor {
 public:
 
-    double Utilization();  // TODO: See src/processor.cpp
+    float Utilization();  // TODO: See src/processor.cpp
     // TODO: Declare any necessary private members
 private:
     double prevUserTime;
@@ -18,14 +18,14 @@ private:
     double prevSoftIrqTime;
     double prevStealTime;
 
-    void UpdateValues(double user,
-                      double nice,
-                      double system,
-                      double idle,
-                      double iowait,
-                      double irq,
-                      double softirq,
-                      double steal);
+    void UpdateValues(float user,
+                      float nice,
+                      float system,
+                      float idle,
+                      float iowait,
+                      float irq,
+                      float softirq,
+                      float steal);
 };
 
 #endif
