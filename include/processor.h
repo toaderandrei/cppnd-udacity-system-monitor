@@ -9,14 +9,14 @@ public:
     float Utilization();  // TODO: See src/processor.cpp
     // TODO: Declare any necessary private members
 private:
-    double prevUserTime;
-    double prevIdleTime;
-    double prevNiceTime;
-    double prevIowaitTime;
-    double prevSystemTime;
-    double prevIrqTime;
-    double prevSoftIrqTime;
-    double prevStealTime;
+    float prevUserTime;
+    float prevIdleTime;
+    float prevNiceTime;
+    float prevIowaitTime;
+    float prevSystemTime;
+    float prevIrqTime;
+    float prevSoftIrqTime;
+    float prevStealTime;
 
     void UpdateValues(float user,
                       float nice,
