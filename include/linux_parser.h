@@ -33,7 +33,7 @@ namespace LinuxParser {
 
     std::string Kernel();
 
-// CPU
+    // CPU
     enum CPUStates {
         kUser_ = 0,
         kNice_,
@@ -47,7 +47,7 @@ namespace LinuxParser {
         kGuestNice_
     };
 
-    std::vector<std::string> CpuUtilization();
+    std::vector<double> CpuUtilization();
 
     long Jiffies();
 

@@ -73,9 +73,8 @@ float LinuxParser::MemoryUtilization() {
     std::string key, line;
     float total_memory = 0.0, memory_free = 0.0;
     float memory_used = 0.0;
-    std::ifstream stream(LinuxParser::kProcDirectory + kMeminfoFilename);
-    total_memory = Utils::GetValueByKey<float>(Constants::filterMemTotal, kMeminfoFilename);
-    memory_free = Utils::GetValueByKey<float>(Constants::filterMemoryFree, kMeminfoFilename);
+    total_memory = Utils::GetValueByKey<float>(kProcDirectory, kMeminfoFilename, Constants::filterMemTotal);
+    memory_free = Utils::GetValueByKey<float>(kProcDirectory, kMeminfoFilename, Constants::filterMemoryFree);
 
     if (total_memory != 0.0) {
         memory_used = (total_memory - memory_free) / total_memory;
@@ -98,6 +97,20 @@ long LinuxParser::UpTime() {
     return uptime;
 }
 
+
+// TODO: Read and return CPU utilization
+vector<double> LinuxParser::CpuUtilization() {
+    return Utils::GetCpuData(kProcDirectory, kStatFilename);
+}
+
+int LinuxParser::TotalProcesses() {
+    return Utils::GetValueByKey<int>(kProcDirectory, kStatFilename, Constants::filterProcesses);
+}
+
+int LinuxParser::RunningProcesses() {
+    return Utils::GetValueByKey<int>(kProcDirectory, kStatFilename, Constants::filterRunningProcesses);
+}
+
 // TODO: Read and return the number of jiffies for the system
 long LinuxParser::Jiffies() { return 0; }
 
@@ -110,17 +123,6 @@ long LinuxParser::ActiveJiffies() { return 0; }
 
 // TODO: Read and return the number of idle jiffies for the system
 long LinuxParser::IdleJiffies() { return 0; }
-
-// TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
-
-int LinuxParser::TotalProcesses() {
-    return Utils::GetValueByKey<int>(Constants::filterProcesses, kStatFilename);
-}
-
-int LinuxParser::RunningProcesses() {
-    return Utils::GetValueByKey<int>(Constants::filterRunningProcesses, kStatFilename);
-}
 
 // TODO: Read and return the command associated with a process
 // REMOVE: [[maybe_unused]] once you define the function
