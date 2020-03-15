@@ -1,6 +1,7 @@
 #include <string>
 
 #include "format.h"
+#include<bits/stdc++.h>
 
 using std::string;
 
@@ -29,4 +30,15 @@ string Format::ElapsedTime(long seconds) {
         elapsed_time += std::to_string(seconds);
     }
     return elapsed_time;
+}
+
+string Format::KbsToMbs(float kbs) {
+
+    float mbs = kbs / 1000;
+    std::string mbs_string = std::to_string(mbs);
+    std::size_t found = mbs_string.find('.');
+    if (found != std::string::npos) {
+        mbs_string = mbs_string.substr(0, found + 3);
+    }
+    return mbs_string;
 }

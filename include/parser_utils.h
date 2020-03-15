@@ -23,9 +23,8 @@ namespace ParserUtils {
         if (stream.is_open()) {
             while (getline(stream, line)) {
                 std::istringstream linestream(line);
-                while (linestream >> key) {
+                while (linestream >> key >> value) {
                     if (key == filter) {
-                        linestream >> value;
                         return value;
                     }
                 }

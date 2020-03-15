@@ -18,7 +18,6 @@ public:
     std::string Command();                   // TODO: See src/process.cpp
     double CpuUtilization();                  // TODO: See src/process.cpp
     std::string Ram();                       // TODO: See src/process.cpp
-    float RawRam() const;
     long int UpTime();                       // TODO: See src/process.cpp
     bool operator<(Process const &a) const;  // TODO: See src/process.cpp
 
@@ -30,7 +29,7 @@ private:
     float cutime_ = 0.0;
     float cstime_ = 0.0;
     float starttime_ = 0.0;
-
+    float ram;
     std::vector<std::string> ReadCpuUsages(const int &pid);
 };
 

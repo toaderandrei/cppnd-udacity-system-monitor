@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <format.h>
 
 #include "process.h"
 #include "linux_parser.h"
@@ -18,7 +19,6 @@ Process::Process(int pid, long hertz) : _pid_(pid), _hertz_(hertz) {
     starttime_ = stof(cpu_usage_values[22]);
 }
 
-
 int Process::Pid() { return _pid_; }
 
 double Process::CpuUtilization() {
@@ -35,15 +35,12 @@ string Process::Command() { return string(); }
 
 // TODO: Return this process's memory utilization
 string Process::Ram() {
-    float mbRam = RawRam() / 1000;
-    return std::to_string(mbRam);
-}
 
-float Process::RawRam() const {
-    return ParserUtils::GetValueByKey<float>(LinuxParser::kProcDirectory + std::to_string(_pid_),
-                                             LinuxParser::kStatusFilename,
-                                             "vmSize");
-};
+    this->ram = ParserUtils::GetValueByKey<float>(LinuxParser::kProcDirectory + std::to_string(_pid_),
+                                                  LinuxParser::kStatusFilename,
+                                                  "VmSize:");
+    return Format::KbsToMbs(this->ram);
+}
 
 // TODO: Return the user (name) that generated this process
 string Process::User() {
@@ -61,7 +58,7 @@ long int Process::UpTime() {
 // TODO: Overload the "less than" comparison operator for Process objects
 // REMOVE: [[maybe_unused]] once you define the function
 bool Process::operator<(Process const &a) const {
-    bool compare = this->RawRam() > a.RawRam();
+    bool compare = this->ram > a.ram;
     return compare;
 }
 
