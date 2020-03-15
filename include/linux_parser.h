@@ -25,6 +25,8 @@ namespace LinuxParser {
 
     std::vector<int> Pids();
 
+    std::vector<int> Pids2();
+
     int TotalProcesses();
 
     int RunningProcesses();
@@ -65,8 +67,6 @@ namespace LinuxParser {
     std::string Uid(int pid);
 
     std::string User(int pid);
-
-    long int UpTime(int pid);
 };  // namespace LinuxParser
 
 #endif

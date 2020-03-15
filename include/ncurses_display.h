@@ -7,7 +7,7 @@
 #include "system.h"
 
 namespace NCursesDisplay {
-    void Display(System &system, int n = 10);
+    void Display(System &system, int n = 25);
 
     void DisplaySystem(System &system, WINDOW *window);
 
