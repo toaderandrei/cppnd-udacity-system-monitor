@@ -55,8 +55,18 @@ public:
 
     // TODO: Define any necessary private members
 private:
+    long Hertz;
+
     Processor cpu_;
     std::vector<Process> processes_;
+
+    void UpdateProcesses();
+
+    /**
+     * Add new process
+     * @param changed flag that tells there was a process that was added.
+     */
+    void AddNewProcesses(bool &changed, std::vector<int> &current_pids);
 };
 
 #endif

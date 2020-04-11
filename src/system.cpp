@@ -20,16 +20,8 @@ Processor &System::Cpu() {
 }
 
 vector<Process> &System::Processes() {
-    vector<int> pids = LinuxParser::Pids();
-    for (const int pid : pids) {
-        std::string Uid = LinuxParser::Uid(pid);
-        string User = LinuxParser::User(pid);
-        long Hertz = sysconf(_SC_CLK_TCK);
-        Process process(pid, Hertz);
-        processes_.emplace_back(process);
-    }
-
-    std::sort(processes_.begin(), processes_.end());
+    Hertz = sysconf(_SC_CLK_TCK);
+    UpdateProcesses();
     return processes_;
 }
 
@@ -54,3 +46,25 @@ int System::TotalProcesses() {
 }
 
 long int System::UpTime() { return LinuxParser::UpTime(); }
+
+void System::UpdateProcesses() {
+    std::vector<int> current_pids = LinuxParser::Pids();
+    bool updated = false;
+    AddNewProcesses(updated, current_pids);
+    if (updated) {
+        std::sort(processes_.begin(), processes_.end());
+    }
+}
+
+void System::AddNewProcesses(bool &changed, std::vector<int> &current_pids) {
+    for (size_t i = 0; i < current_pids.size(); i++) {
+        const int current_pid = current_pids[i];
+        if (std::find_if(processes_.begin(), processes_.end(), [current_pid](Process &process) {
+            return current_pid == process.Pid();
+        }) == processes_.end()) {
+            Process process(current_pid, Hertz);
+            processes_.emplace_back(process);
+            changed = true;
+        }
+    }
+}

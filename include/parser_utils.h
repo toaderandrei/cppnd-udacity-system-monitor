@@ -32,6 +32,28 @@ namespace ParserUtils {
         }
         return value;
     }
+
+    template<typename T>
+    T GetFirstValueByKey(
+            const std::string &directory,
+            const std::string &filename,
+            const size_t &total_characters = 40) {
+        std::string key, line;
+        T value;
+        std::ifstream stream(directory + filename);
+        if (stream.is_open()) {
+            if (getline(stream, line)) {
+                std::istringstream linestream(line);
+                linestream >> key;
+                if (key.size() > total_characters) {
+                    key.resize(total_characters);
+                    key = key + "...";
+                }
+                return key;
+            }
+        }
+        return value;
+    }
 }
 
 

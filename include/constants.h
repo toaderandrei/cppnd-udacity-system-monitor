@@ -12,6 +12,8 @@ namespace Constants {
     constexpr char filterCpu[] = "cpu";
     constexpr char filterUID[] = "Uid:";
     constexpr char filterProcMem[] = "VmData:";
+    constexpr char kCmdlineFilename[] = "/cmdline";
+
 
 }  // namespace ParserConsts
 

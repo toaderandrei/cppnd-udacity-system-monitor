@@ -91,7 +91,7 @@ vector<int> LinuxParser::Pids2() {
 
 float LinuxParser::MemoryUtilization() {
     std::string key, line;
-    float total_memory = 0.0, memory_free = 0.0;
+    float total_memory, memory_free;
     float memory_used = 0.0;
     total_memory = ParserUtils::GetValueByKey<float>(kProcDirectory, kMeminfoFilename, Constants::filterMemTotal);
     memory_free = ParserUtils::GetValueByKey<float>(kProcDirectory, kMeminfoFilename, Constants::filterMemoryFree);
@@ -205,7 +205,4 @@ string LinuxParser::User(int pid) {
         }
     }
     return key;
-
-
-    return user;
 }
