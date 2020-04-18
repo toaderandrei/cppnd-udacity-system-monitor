@@ -50,6 +50,7 @@ namespace LinuxParser {
     };
 
     std::vector<float> CpuUtilization();
+    std::vector<std::string> CpuUsages(int pid);
 
     long Jiffies();
 
@@ -59,12 +60,13 @@ namespace LinuxParser {
 
     long IdleJiffies();
 
-// Processes
+    // Processes
     std::string Command(int pid);
 
     std::string Ram(int pid);
 
-    std::string Uid(int pid);
+    float GetRawRam(int _pid_);
+     std::string Uid(int pid);
 
     std::string User(int pid);
 };  // namespace LinuxParser

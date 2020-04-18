@@ -30,8 +30,6 @@ private:
     float starttime_ = 0.0;
     float ram;
     std::vector<std::string> ReadCpuUsages(const int &pid);
-
-    float GetRawRam() const;
 };
 
 #endif
